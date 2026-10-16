@@ -1,0 +1,33 @@
+{
+    "manifest_version":  3,
+    "name":  "歌词悬浮面板",
+    "plugin_id":  "lyric-floating-panel",
+    "version":  "1.1.0",
+    "description":  "全屏歌词页原样搬入完整播放栏：保持宿主菜单、尺寸和按钮不变；歌词页默认半透明，悬停清晰，离开后全透明，并隐藏重复进度条。",
+    "moekoe":  true,
+    "minversion":  "1.7.0",
+    "author":  {
+                   "name":  "SHIYI"
+               },
+    "permissions":  [
+                        "storage"
+                    ],
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "file:///*"
+                                            ],
+                                "js":  [
+                                           "content.js"
+                                       ],
+                                "css":  [
+                                            "styles.css"
+                                        ],
+                                "run_at":  "document_start"
+                            }
+                        ],
+    "icons":  {
+                  "48":  "icons/icon48.png",
+                  "128":  "icons/icon128.png"
+              }
+}

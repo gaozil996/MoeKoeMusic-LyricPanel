@@ -1,0 +1,115 @@
+/* ============================================================
+   歌词悬浮面板 · 样式
+
+   卡片本体就是宿主那排 .player-container，只做两件事：把它搬到歌词页里，
+   以及按鼠标在不在控制它的不透明度。别的什么都不动 —— 宽度、圆角、阴影、
+   内层间距、配色全沿用宿主自己的，所以它在外面长什么样，进来就还是什么样。
+
+   只保留四处必要的覆盖，每一处都注明为什么：
+     1) 定位/尺寸：左右贴边 + width:auto，和外面一样宽地铺满歌词页底部
+        （left:50% + translateX(-50%) 在实机上只生效了一半，别再用）。
+     2) opacity 过渡：淡出用 transition-delay 做缓冲，挂上 .mk-lp-dim 后
+        0.55s 才开始淡，这期间鼠标回来摘掉类，动画根本不启动。
+     3) 两条进度条：歌词页自己那根（.progress-bar-container 里）和卡片这根
+        会一起响应鼠标悬停，看着就是重复了一条，歌词页里只留卡片这根。
+     4) 只隔离宿主专门给歌词页写的进度条规则，播放器栏其余 CSS 不触碰。
+   ============================================================ */
+
+/* ---------- 卡片本体 ---------- */
+
+.player-container.mk-lp-in {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+  transform: none !important;
+  z-index: 5;
+  transition: opacity .16s ease;
+}
+
+/* 进入歌词页的第一帧：半透明。鼠标一动就交给常态逻辑（在上=1，离开=0）。 */
+.player-container.mk-lp-in.mk-lp-enter {
+  opacity: .5;
+  transition: opacity .5s ease .2s;
+}
+
+.player-container.mk-lp-in.mk-lp-dim {
+  opacity: var(--mk-lp-op, 0);
+  transition: opacity .35s ease 0s;
+}
+
+/* 宿主为歌词页左栏的独立进度条写了 margin:0 10px；播放器栏搬进来会命中此规则，
+   只在歌词页中把其左右间距还原。主页播放栏与按钮样式均不改变。 */
+html.mk-lp-on .lyrics-screen .player-container.mk-lp-in > .progress-bar {
+  margin: 0 !important;
+}
+
+/* ---------- 歌词页里只留一根进度条 ---------- */
+
+html.mk-lp-on .lyrics-screen .progress-bar-container {
+  display: none !important;
+}
+
+/* ---------- 关闭入口 ---------- */
+
+/* 歌词页右上角的向下箭头：关歌词页的入口统一交给卡片里的歌名/封面。
+   规则挂在 html.mk-lp-on 下面 —— 这个 class 由 content.js 在「卡片确实挂进
+   歌词页」时加、卡片送回底栏时删。插件没注入、没挂上、页面结构变了，class
+   就不在，宿主那个 ∨ 照常显示，不会把人困在歌词页里出不来。 */
+html.mk-lp-on .lyrics-screen > .close-btn {
+  display: none !important;
+}
+
+/* PlayerControl 的进度条搬进 .lyrics-screen 后会命中宿主专门给歌词控制条写的
+   margin:0 10px。收回这条歌词页特有的间距，其它尺寸、颜色、按钮、歌手文字都
+   继续使用宿主 PlayerControl 原样样式。 */
+.lyrics-screen .player-container.mk-lp-in > .progress-bar {
+  margin: 0 !important;
+}
+
+/* ---------- 歌词设置面板里的那一行（配色抄宿主与逐字歌词） ---------- */
+
+.mk-lp-sec {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ffffff14;
+}
+
+.mk-lp-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.mk-lp-row > span {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #ffffffb8;
+}
+
+.mk-lp-num {
+  flex: none;
+  min-width: 40px;
+  text-align: right;
+  font-size: 12px;
+  color: #ffffff80;
+  font-variant-numeric: tabular-nums;
+}
+
+.mk-lp-range {
+  flex: 1;
+  height: 4px;
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.mk-lp-tip {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #ffffff59;
+}
