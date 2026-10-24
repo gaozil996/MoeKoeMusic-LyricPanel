@@ -69,11 +69,11 @@ html.mk-lp-on .lyrics-screen > .close-btn {
   margin: 0 !important;
 }
 
-/* 播放列表弹层是 PlayerControl 的另一个根节点，不在 .lyrics-bg 里面，宿主把它
-   定在 z-index:2；歌词页那层是 z-index:100，所以弹层即使打开也被整页盖住，
-   表现就是「点播放列表没反应」。歌词页开着时把弹层提到歌词层之上。 */
-html.mk-lp-on .queue-popup {
-  z-index: 120;
+/* 播放列表弹层是 PlayerControl 的另一个根节点，和歌词背景同级。
+   歌词页打开时提升到歌词层之上。需要更高特指度和 !important，确保覆盖
+   页面已有的播放列表层级规则。 */
+html.mk-lp-on body .queue-popup {
+  z-index: 120 !important;
 }
 
 /* ---------- 歌词设置面板里的那一行（配色抄宿主与逐字歌词） ---------- */
