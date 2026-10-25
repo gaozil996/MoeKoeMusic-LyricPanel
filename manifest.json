@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "歌词悬浮面板",
   "plugin_id": "lyric-floating-panel",
-  "version": "1.1.2",
-  "description": "全屏歌词页原样搬入完整播放栏：保持宿主菜单、尺寸和按钮不变；默认半透明，悬停清晰，离开后全透明；播放列表弹层正常显示。",
+  "version": "1.1.3",
+  "description": "全屏歌词页原样搬入完整播放栏；播放列表弹层正常显示，队列歌曲改为紧凑单行并把时长放在歌名后。",
   "moekoe": true,
   "minversion": "1.7.0",
   "author": {
@@ -17,6 +17,7 @@
       "matches": [
         "file:///*"
       ],
+      "world": "ISOLATED",
       "js": [
         "content.js"
       ],
@@ -24,6 +25,16 @@
         "styles.css"
       ],
       "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "file:///*"
+      ],
+      "world": "MAIN",
+      "js": [
+        "queue-main.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
   "icons": {

@@ -76,6 +76,47 @@ html.mk-lp-on body .queue-popup {
   z-index: 120 !important;
 }
 
+/* 歌词页队列压成紧凑单行：时长紧跟歌名，控制按钮仍在右侧。
+   内容脚本同步把虚拟列表 itemSize 改为 36px，样式在此设置相同真实高度，
+   并且只在歌词页队列弹层存在时生效。 */
+html.mk-lp-queue-compact .queue-item {
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  padding: 0 8px !important;
+}
+
+html.mk-lp-queue-compact .queue-song-info {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 100% !important;
+}
+
+html.mk-lp-queue-compact .queue-song-title {
+  width: auto !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+
+html.mk-lp-queue-compact .queue-artist {
+  flex: 0 0 auto !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  white-space: nowrap !important;
+  opacity: .68;
+}
+
+html.mk-lp-queue-compact .queue-actions {
+  flex: 0 0 auto !important;
+}
+
 /* ---------- 歌词设置面板里的那一行（配色抄宿主与逐字歌词） ---------- */
 
 .mk-lp-sec {

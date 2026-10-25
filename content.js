@@ -70,7 +70,6 @@
   var rect = null;    // 卡片矩形缓存，鼠标移动时不做布局测量
   var mx = -1, my = -1;
   var lastVw = 0;
-
   // 卡片几何：左右贴边 + width:auto，元素自己撑满歌词页宽度，跟外面那排一样宽。
   // 不设固定宽度、不用 transform —— left:50% + translateX(-50%) 实机上只生效了
   // 一半（卡片右边缘停在窗口中线），宿主还有
